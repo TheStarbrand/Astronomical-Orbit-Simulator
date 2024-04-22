@@ -8,7 +8,7 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT)) # pygame surface, called window
 pygame.display.set_caption("Orbit Simulation")
 WHITE = (255, 255, 255)
 
-class Planet:
+class aBody:
     AU = 149597870700  # au in meters
     G = 6.67430 * 10 ** -11  # gravitational constant
     SCALE = 250 / AU  # 1 AU = approx 100 pixels
@@ -24,14 +24,24 @@ class Planet:
         self.x_vel = 0
         self.y_vel = 0
 
-        self.sun = False # its not the sun
+        self.isSun = False # its not the sun
+        self.isPlanet = True # it's a planet
         self.distance_to_sun = 0
-        self.orbit = [] # list of points that the planet has travelled along
+        self.orbit = [] # list of points that the astronomical body has travelled along
 
+def draw(self, win):
+    x = self.x * self.SCALE + WIDTH / 2
+    y = self.y * self.SCALE + HEIGHT / 2
+    pygame.draw.circle(win, self.color, (x, y), self.radius)
+    
 
 def main():
     run = True
     clock = pygame.time.Clock() # to control the speed of the game and regulate the framerate
+
+    sun = aBody(0, 0, 40 , (255, 255, 0), 1.989 * 10 ** 30)
+    sun.isSun = True
+    bodies = [sun]
 
     while run:
         clock.tick(60) # maximum framerate of 60 frames per second
